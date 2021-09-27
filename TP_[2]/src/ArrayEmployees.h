@@ -6,7 +6,7 @@ struct {
 	int sector;
 	int isEmpty;
 }typedef Employee;
-#define ELEMENTS 20
+#define ELEMENTS 1000
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

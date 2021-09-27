@@ -98,7 +98,7 @@ int main(void) {
 				printf("Error de informe de lista\n");
 			}
 			if (salaryTotal(arrayEmployees, ELEMENTS, &promedio, &total,
-					&cantidad) == -1) {
+					&cantidad) == -1 && flagAdded == 0) {
 				printf("Error de informe total de salario\n");
 			} else {
 				printf("Total Salarios: %.2f\nPromedio Salarios: %.2f\nCantidad que superan el promedio de salario: %d\n",
