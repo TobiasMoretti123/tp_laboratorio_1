@@ -14,7 +14,7 @@ struct {
 #ifndef ARRAYEMPLOYEES_H_
 #define ARRAYEMPLOYEES_H_
 
-int initEmployees(Employee *list, int len);
+void initEmployees(Employee *list, int len);
 int addEmployee(Employee *list, int len, int id, char name[], char lastName[],
 		float salary, int sector);
 int findEmployeeById(Employee *list, int len, int id);
