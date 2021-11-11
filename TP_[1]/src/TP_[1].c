@@ -28,6 +28,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "utn.h"
+#include "validaciones.h"
 #include "math.h"
 
 int main(void) {
@@ -60,51 +61,72 @@ int main(void) {
 		printf("3.Calcular todas las operaciones\n");
 		printf("4.Informar resultados\n");
 		printf("5.Salir\n");
-		printf("Elija una opcion: ");
-		scanf("%d", &opcion);
-		switch (opcion) {
-		case 1:
-			numeroA = IngresarEntero("Ingrese primer operando(A=X): ", 10000,
-					-10000, "Reingrese operando: ");
-			banderaNumero1 = 1;
-			break;
-		case 2:
-			numeroB = IngresarEntero("Ingrese segundo operando(A=X): ", 10000,
-					-10000, "Reingrese operando: ");
-			banderaNumero2 = 1;
-			break;
-		case 3:
-			SumarValores(&numeroA, &numeroB, &suma);
-			RestarValores(&numeroA, &numeroB, &resta);
-			respuestaDivicion = DividirValores(&numeroA, &numeroB, &division);
-			MultiplicarValores(&numeroA, &numeroB, &multiplicacion);
-			respuestaFactorialA = CalcularFactorial(&numeroA, &factorialA);
-			respuestaFactorialB = CalcularFactorial(&numeroB, &factorialB);
-			break;
-		case 4:
-			printf("a)El resultado de A+B: %d\n", suma);
-			printf("b)El resultado de A-B: %d\n", resta);
-			if (respuestaDivicion == 1) {
-				printf("c)El resultado de A/B: %.2f\n", division);
-			} else {
-				printf("c)No es posible dividir por cero\n");
+		if (utn_getInt(&opcion, 20, "Ingrese opcion: ", "Numero invalido ", 1,
+				5, 4, 0) == 1) {
+			switch (opcion) {
+			case 1:
+				if (utn_getInt(&numeroA, 20, "Ingrese primer operando: ",
+						"Numero invalido ", -100000, 100000, 4, 0) == 1) {
+					banderaNumero1 = 1;
+				} else {
+					banderaNumero1 = 0;
+					printf("Error en la carga de numero\n");
+				}
+				break;
+			case 2:
+				if (utn_getInt(&numeroB, 20, "Ingrese segundo operando: ",
+						"Numero invalido ", -100000, 100000, 4, 0) == 1) {
+					banderaNumero2 = 1;
+				} else {
+					banderaNumero2 = 0;
+					printf("Error en la carga de numero\n");
+				}
+				break;
+			case 3:
+				if (banderaNumero1 == 1 && banderaNumero2 == 1) {
+					SumarValores(&numeroA, &numeroB, &suma);
+					RestarValores(&numeroA, &numeroB, &resta);
+					respuestaDivicion = DividirValores(&numeroA, &numeroB,
+							&division);
+					MultiplicarValores(&numeroA, &numeroB, &multiplicacion);
+					respuestaFactorialA = CalcularFactorial(&numeroA,
+							&factorialA);
+					respuestaFactorialB = CalcularFactorial(&numeroB,
+							&factorialB);
+					printf("Valores calculados correctamente\n");
+				} else {
+					printf("No puede calcular si no ingreso numeros\n");
+				}
+				break;
+			case 4:
+				if (banderaNumero1 == 1 && banderaNumero2 == 1) {
+					printf("a)El resultado de A+B: %d\n", suma);
+					printf("b)El resultado de A-B: %d\n", resta);
+					if (respuestaDivicion == 1) {
+						printf("c)El resultado de A/B: %.2f\n", division);
+					} else {
+						printf("c)No es posible dividir por cero\n");
+					}
+					printf("d)El resultado de A*B: %d\n", multiplicacion);
+					if (respuestaFactorialA == 1) {
+						printf("e)El factorial de A es: %d ", factorialA);
+					} else {
+						printf(
+								"e)Factorial de A no se pudo calcular valor negativo o 0 ");
+					}
+					if (respuestaFactorialB == 1) {
+						printf("y El factorial de B es: %d\n", factorialB);
+					} else {
+						printf("y Factorial de B no se pudo calcular valor negativo o 0\n");
+					}
+				}
+				break;
 			}
-			printf("d)El resultado de A*B: %d\n", multiplicacion);
-			if (respuestaFactorialA == 1) {
-				printf("e)El factorial de A es: %d ", factorialA);
-			} else {
-				printf("e)Factorial de A no se pudo calcular valor negativo o 0 ");
-			}
-			if (respuestaFactorialB == 1) {
-				printf("y El factorial de B es: %d\n", factorialB);
-			} else {
-				printf("y Factorial de B no se pudo calcular valor negativo o 0\n");
-			}
-			break;
+		} else {
+			printf("Opcion invalida\n");
+			opcion = 5;
 		}
-
-	} while (opcion != 5);
+	} while (opcion < 5);
 	return 0;
 }
-
 

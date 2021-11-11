@@ -85,18 +85,15 @@ int main(void) {
 					printf("Error de carga o no se encontro el empleado\n");
 				}
 			}
-
 			break;
 		case 4:
 			get_int(&opcionMenuDos, 2,
 					"1.Listado de los empleados ordenados alfabéticamente por Apellido y Sector\n2.Total y promedio de los salarios, y cuántos empleados superan el salario promedio\n3.Volver\nQue informe desea ver: ",
 					"Opcion invalida\n", 1, 3, 4, 0);
-
 			switch (opcionMenuDos) {
 			case 1:
 				if (flagAdded == 0) {
-					printf(
-							"No se puede listar los empleados si no se ingreso ninguno\n");
+					printf("No se puede listar los empleados si no se ingreso ninguno\n");
 				} else {
 					sortEmployees(arrayEmployees, ELEMENTS, 0);
 					function = printEmployees(arrayEmployees, ELEMENTS);
@@ -104,7 +101,6 @@ int main(void) {
 						printf("Error de carga de lista\n");
 					}
 				}
-
 				break;
 			case 2:
 				if (flagAdded == 0) {
@@ -113,8 +109,7 @@ int main(void) {
 					function = salaryTotal(arrayEmployees, ELEMENTS, &promedio,
 							&total, &cantidad);
 					if (function == 1) {
-						printf(
-								"Total salarios: %.2f\nPromedio de salarios: %.2f\nCantidad de empleados que superan el salario promedio: %d\n",
+						printf("Total salarios: %.2f\nPromedio de salarios: %.2f\nCantidad de empleados que superan el salario promedio: %d\n",
 								total, promedio, cantidad);
 					}
 				}
@@ -125,7 +120,6 @@ int main(void) {
 			printf("Gracias por usar nuestro serivicio");
 			break;
 		}
-
 	} while (opcion != 5);
 
 	return 0;
