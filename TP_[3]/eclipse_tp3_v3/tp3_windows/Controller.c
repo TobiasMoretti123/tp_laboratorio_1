@@ -128,8 +128,8 @@ int controller_ListEmployee(LinkedList *pArrayListEmployee) {
 	int retorno;
 	int len;
 	retorno = -1;
-	printf(" ________ _______________ ______ _______ \n");
-	printf("|POSICION|NOMBRE         |HORAS |SUELDO |\n");
+	printf(" ________ ________ _______________ ______ _______ \n");
+	printf("|POSICION|ID      |NOMBRE         |HORAS |SUELDO |\n");
 	if (pArrayListEmployee != NULL) {
 		len = ll_len(pArrayListEmployee);
 		for (int i = 0; i < len; i++) {

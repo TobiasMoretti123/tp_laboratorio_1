@@ -298,7 +298,8 @@ int employee_edit(Employee *this) {
 			&& employee_getSueldo(this, &sueldo) == 0
 			&& employee_getNombre(this, nombre) == 0
 			&& employee_getId(this, &id) == 0) {
-		printf("Usted va a modificar a:\nID:%d\nNombre:%s\nHoras trabajadas:%d\nSueldo:%d\n",
+		printf(
+				"Usted va a modificar a:\nID:%d\nNombre:%s\nHoras trabajadas:%d\nSueldo:%d\n",
 				id, nombre, horas, sueldo);
 		if (utn_getInt(&respuesta, 2,
 				"1)Todo\n2)Nombre\n3)Horas trabajadas\n4)Sueldo\nQue quiere modificar?:",
@@ -384,13 +385,15 @@ int employee_print(Employee *this, int index) {
 	char nombre[50];
 	int horas;
 	int sueldo;
+	int id;
 	retorno = -1;
 	if (this != NULL) {
-		if (index >= 0 && employee_getNombre(this, nombre) == 0
+		if (index >= 0 && employee_getId(this, &id) == 0
+				&& employee_getNombre(this, nombre) == 0
 				&& employee_getHorasTrabajadas(this, &horas) == 0
 				&& employee_getSueldo(this, &sueldo) == 0) {
-			printf("|%-8d|%-15s|%-6d|%-7d|\n", index + 1, nombre, horas,
-					sueldo);
+			printf("|%-8d|%-8d|%-15s|%-6d|%-7d|\n", index + 1, id, nombre,
+					horas, sueldo);
 			retorno = 0;
 		}
 	}

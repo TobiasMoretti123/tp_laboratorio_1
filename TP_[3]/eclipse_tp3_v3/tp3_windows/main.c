@@ -38,49 +38,68 @@ int main() {
 				"Opcion invalida ", 1, 10, 4, 0) == 1) {
 			switch (opciones) {
 			case 1:
-				if (controller_loadFromText("data.csv", listaEmpleados) == -1
-						|| banderaBinario == 1) {
-					printf("Error en la carga del archivo o este no existe\n");
+				if (banderaBinario != 1) {
+					if (controller_loadFromText("data.csv", listaEmpleados)
+							== -1) {
+						printf("Error en la carga del archivo o este no existe\n");
+					} else {
+						printf("Lista cargada correctamente\n\n");
+						banderaTexto = 1;
+					}
 				} else {
-					printf("Lista cargada correctamente\n\n");
-					banderaTexto = 1;
+					printf("Ya cargo el archivo en modo binario\n");
 				}
 				break;
 			case 2:
-				if (controller_loadFromBinary("data.bin", listaEmpleados) == -1
-						|| banderaTexto == 1) {
-					printf("Error en la carga del archivo o este no existe\n");
+				if (banderaTexto != 1) {
+					if (controller_loadFromBinary("data.bin", listaEmpleados)
+							== -1) {
+						printf("Error en la carga del archivo o este no existe\n");
+					} else {
+						printf("Lista cargada correctamente\n\n");
+						banderaBinario = 1;
+					}
 				} else {
-					printf("Lista cargada correctamente\n\n");
-					banderaBinario = 1;
+					printf("Ya cargo el archivo en modo texto\n");
 				}
 				break;
 			case 3:
-				if ((controller_addEmployee(listaEmpleados) == 0
-						&& banderaTexto == 1) || banderaBinario == 1) {
-					printf("Empleado ingresado correctamente\n");
-					banderaCargado = 1;
+				if (banderaBinario == 1 || banderaTexto == 1) {
+					if (controller_addEmployee(listaEmpleados) == 0) {
+						printf("Empleado ingresado correctamente\n");
+						banderaCargado = 1;
+					} else {
+						printf("Error en la carga de empleado ");
+						printf("O el archivo no fue abierto\n");
+					}
 				} else {
-					printf("Error en la carga de empleado ");
-					printf("O el archivo no fue abierto\n");
+					printf("Debe cargar el archivo para dar de alta un empleado\n");
 				}
 				break;
 			case 4:
-				if (controller_editEmployee(listaEmpleados) == 0
-						|| banderaCargado == 1) {
-					printf("Empleado modificado correctamente\n");
+				if (banderaCargado == 1 || banderaTexto == 1
+						|| banderaBinario == 1) {
+					if (controller_editEmployee(listaEmpleados) == 0) {
+						printf("Empleado modificado correctamente\n");
+					} else {
+						printf("Error en la modificacion de empleado ");
+						printf("O el empleado no fue encontrado\n");
+					}
 				} else {
-					printf("Error en la modificacion de empleado ");
-					printf("O el empleado no fue encontrado\n");
+					printf("De de alta un empleado antes de modificarlo\n");
 				}
 				break;
 			case 5:
-				if (controller_removeEmployee(listaEmpleados) == 0
-						|| banderaCargado == 1) {
-					printf("Empleado dado de baja correctamente\n");
+				if (banderaCargado == 1 || banderaTexto == 1
+						|| banderaBinario == 1) {
+					if (controller_removeEmployee(listaEmpleados) == 0) {
+						printf("Empleado dado de baja correctamente\n");
+					} else {
+						printf("Error en la baja de empleado o ");
+						printf("No se encontro a ese empleado\n");
+					}
 				} else {
-					printf("Error en la baja de empleado o ");
-					printf("No se encontro a ese empleado\n");
+					printf("De de alta un empleado antes de dar de baja\n");
 				}
 				break;
 			case 6:
@@ -89,29 +108,35 @@ int main() {
 				}
 				break;
 			case 7:
-				if (controller_sortEmployee(listaEmpleados) == 0
-						|| banderaCargado == 1) {
-					printf("Empleados ordenados correctamente\n");
+				if (banderaCargado == 1 || banderaTexto == 1
+						|| banderaBinario == 1) {
+					if (controller_sortEmployee(listaEmpleados) == 0) {
+						printf("Empleados ordenados correctamente\n");
+					} else {
+						printf("Error en el ordenamiento\n");
+					}
 				} else {
-					printf("Error en el ordenamiento\n");
+					printf("Tiene que haber empleados a ordenar\n");
 				}
 				break;
 			case 8:
-				if (banderaCargado == 1 || banderaTexto == 1
-						|| banderaBinario == 1) {
+				if (banderaCargado == 1 || banderaTexto == 1) {
 					if (controller_saveAsText("data.csv", listaEmpleados)
 							== 0) {
 						printf("Archivo guardado correctamente\n");
 					}
+				} else {
+					printf("Debe haber cargado el archivo de texto para guardarlo\n");
 				}
 				break;
 			case 9:
-				if (banderaCargado == 1 || banderaTexto == 1
-						|| banderaBinario == 1) {
+				if (banderaCargado == 1 || banderaBinario == 1) {
 					if (controller_saveAsBinary("data.bin", listaEmpleados)
 							== 0) {
 						printf("Archivo guardado correctamente\n");
 					}
+				} else {
+					printf("Debe haber cargado el archivo de binario para guardarlo\n");
 				}
 				break;
 			}
